@@ -9,9 +9,9 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 
 ## Current Position
 
-Phase: 6 of 8 (Radio Data Layer & Audio Hook — complete)
-Plan: 3 of 3 complete
-Status: Phase 6 complete — ready for Phase 7
+Phase: 7 of 8 (Radio Catalog UI — not started)
+Plan: —
+Status: Ready to plan
 Last activity: 2026-02-19 — Phase 6 Plan 03 complete (SSR-safe useAudioPlayer hook)
 
 Progress: [███░░░░░░░] ~30% of v1.1
@@ -48,11 +48,11 @@ Key decisions from v1.0 affecting v1.1:
 Key decisions from Phase 6 Plans 02-03 (v1.1):
 - new Audio() must be inside useEffect with empty deps — only SSR-safe pattern in Next.js App Router (06-03)
 - Named event listener consts required for removeEventListener to work correctly in cleanup (06-03)
-- CORS test deferred — Phase 7 must handle both direct CDN URL case and proxy case until confirmed on Vercel (06-03)
+- CORS confirmed OK — HTML Audio elements play F1 CDN MP3s from Vercel without CORS issues (fetch() is blocked but Audio elements work like img tags). Phase 7 uses direct recording_url CDN links, no proxy needed.
 
 ### Blockers/Concerns
 
-- Phase 7: CORS behavior of livetiming.formula1.com CDN must be smoke-tested on deployed Vercel origin before building sticky player UI. If blocked, implement /api/radio-proxy as first task of Phase 7. Test: open DevTools console on Vercel preview URL and run: const a = new Audio("https://livetiming.formula1.com/static/2024/2024-03-09_Saudi_Arabian_Grand_Prix/2024-03-07_Practice_1/TeamRadio/MAXVER01_1_20240307_141852.mp3"); a.play().then(() => console.log("CORS OK")).catch(e => console.error("CORS BLOCKED:", e));
+- ~~Phase 7 CORS~~ — RESOLVED: Audio playback from livetiming.formula1.com works on f1-hub-data.vercel.app (tested 2026-02-19 via Playwright). No /api/radio-proxy needed.
 - Phase 8: Position data volume (~20K records per driver per race) must be empirically validated with a real API call to choose between bounded date-window query vs. full per-driver fetch.
 
 ### Pending Todos

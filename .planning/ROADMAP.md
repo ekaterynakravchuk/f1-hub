@@ -19,7 +19,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 3: Shared Components & Utilities** - Reusable selectors, loading states, and formatting helpers
 - [ ] **Phase 4: Head-to-Head Module** - Complete driver comparison feature with charts and shareable URLs
 - [ ] **Phase 5: Quiz Module** - Procedurally generated F1 trivia with game modes and score tracking
-- [ ] **Phase 6: Radio Data Layer & Audio Hook** - OpenF1 radio endpoints, React Query hooks, timestamp correlation utility, and SSR-safe audio hook
+- [x] **Phase 6: Radio Data Layer & Audio Hook** - OpenF1 radio endpoints, React Query hooks, timestamp correlation utility, and SSR-safe audio hook (completed 2026-02-19)
 - [ ] **Phase 7: Radio Catalog UI** - Session browser, chronological radio list with driver identity, sticky audio player, driver filter, and navigation wiring
 - [ ] **Phase 8: Race Context Enrichment** - Lap number and driver position badges per radio message, Race Control event overlay and proximity indicators
 
@@ -164,6 +164,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 3. Shared Components & Utilities | 0/2 | Planned | - |
 | 4. Head-to-Head Module | 0/TBD | Not started | - |
 | 5. Quiz Module | 0/2 | Planned | - |
-| 6. Radio Data Layer & Audio Hook | 0/3 | Planned | - |
+| 6. Radio Data Layer & Audio Hook | 3/3 | Complete | 2026-02-19 |
 | 7. Radio Catalog UI | 0/TBD | Not started | - |
 | 8. Race Context Enrichment | 0/TBD | Not started | - |
