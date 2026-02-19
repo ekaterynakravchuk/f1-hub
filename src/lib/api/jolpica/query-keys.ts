@@ -29,4 +29,22 @@ export const jolpikaKeys = {
 
   /** All races for a given season */
   races: (season: string) => [...jolpikaKeys.all, "races", season] as const,
+
+  // --- Career-span keys (Phase 4 — Head-to-Head module) ---
+
+  /** All race results across a driver's entire career */
+  careerResults: (driverId: string) =>
+    [...jolpikaKeys.all, "career-results", driverId] as const,
+
+  /** All qualifying results across a driver's entire career */
+  careerQualifying: (driverId: string) =>
+    [...jolpikaKeys.all, "career-qualifying", driverId] as const,
+
+  /** All seasons a driver competed in */
+  driverSeasons: (driverId: string) =>
+    [...jolpikaKeys.all, "driver-seasons", driverId] as const,
+
+  /** A driver's championship standing for a specific season */
+  driverSeasonStanding: (driverId: string, season: string) =>
+    [...jolpikaKeys.all, "driver-season-standing", driverId, season] as const,
 } as const;
