@@ -63,11 +63,11 @@ Plans:
   5. Developer can apply team colors to visualizations using constructor ID to hex color mapping
   6. Developer can format lap times from milliseconds to readable mm:ss.SSS format
   7. Developer can display country flags or icons using nationality identifiers
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md — Install shadcn primitives, @tanstack/react-virtual, utility modules (team colors, lap time formatter, nationality flags), and loading/error components
+- [ ] 03-02-PLAN.md — SeasonSelect, RaceSelect, and DriverSelect components with virtualization and single/multi-select modes
 
 ### Phase 4: Head-to-Head Module
 **Goal**: Users can compare any two F1 drivers side-by-side with statistics and interactive visualizations
@@ -97,5 +97,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Project Setup & Infrastructure | 0/2 | Planned | - |
 | 2. Data Layer Foundation | 0/2 | Planned | - |
-| 3. Shared Components & Utilities | 0/TBD | Not started | - |
+| 3. Shared Components & Utilities | 0/2 | Planned | - |
 | 4. Head-to-Head Module | 0/TBD | Not started | - |
