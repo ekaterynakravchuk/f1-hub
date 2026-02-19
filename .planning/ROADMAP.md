@@ -16,6 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 2: Data Layer Foundation** - API clients, TypeScript types, React Query provider, and data hooks
 - [ ] **Phase 3: Shared Components & Utilities** - Reusable selectors, loading states, and formatting helpers
 - [ ] **Phase 4: Head-to-Head Module** - Complete driver comparison feature with charts and shareable URLs
+- [ ] **Phase 5: Quiz Module** - Procedurally generated F1 trivia with game modes and score tracking
 
 ## Phase Details
 
@@ -91,7 +92,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -99,3 +100,22 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 2. Data Layer Foundation | 0/2 | Planned | - |
 | 3. Shared Components & Utilities | 0/2 | Planned | - |
 | 4. Head-to-Head Module | 0/TBD | Not started | - |
+| 5. Quiz Module | 0/2 | Planned | - |
+
+### Phase 5: Quiz Module
+**Goal**: Users can play procedurally generated F1 trivia games with multiple modes and track their scores
+**Depends on**: Phase 4
+**Requirements**: QUIZ-01, QUIZ-02, QUIZ-03
+**Success Criteria** (what must be TRUE):
+  1. User can play "Guess the Driver" mode — given career stats, guess which driver it is from multiple choices
+  2. User can play "Higher or Lower" mode — compare two drivers on a stat and guess which is higher
+  3. User can play "Guess the Race" mode — given race details, guess the Grand Prix
+  4. User can see their current score, streak, and session best score
+  5. User can start a new game and scores persist during the browser session via localStorage
+  6. Questions are procedurally generated from Jolpica API data, different each playthrough
+  7. User can navigate to /quiz and select a game mode
+**Plans:** 2 plans
+
+Plans:
+- [ ] 05-01-PLAN.md — useLocalStorage hook, Fisher-Yates shuffle utility, and 3 pure question generator functions (guess driver, higher/lower, guess race)
+- [ ] 05-02-PLAN.md — QuizClient FSM with useReducer, ModeSelect, 3 game mode components, ScoreBoard, and /quiz page integration
