@@ -47,7 +47,7 @@ export function PointsPerSeasonChart({
         <CardTitle>Points Per Season</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
+        <ChartContainer config={chartConfig} className="h-[200px] w-full">
           <LineChart data={data}>
             <CartesianGrid vertical={false} strokeOpacity={0.2} />
             <XAxis

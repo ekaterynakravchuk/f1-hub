@@ -47,7 +47,7 @@ export function CareerScatterChart({
         <CardTitle>Career Race Positions</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[350px] w-full">
+        <ChartContainer config={chartConfig} className="h-[220px] w-full">
           <ScatterChart>
             <CartesianGrid strokeOpacity={0.2} />
             <XAxis

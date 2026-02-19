@@ -158,7 +158,9 @@ export function HeadToHeadClient({ initialD1, initialD2 }: HeadToHeadClientProps
   const d1Name = getDriverName(d1);
   const d2Name = getDriverName(d2);
   const d1Color = getDriverColor(d1, d1Results);
-  const d2Color = getDriverColor(d2, d2Results);
+  const rawD2Color = getDriverColor(d2, d2Results);
+  // When both drivers share the same team color (teammates), use a contrasting color for Driver 2
+  const d2Color = rawD2Color === d1Color ? "#38bdf8" : rawD2Color; // sky-400 as contrast
 
   const showComparison = Boolean(d1 && d2);
   const comparisonReady = showComparison && !dataPending;

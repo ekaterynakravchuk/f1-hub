@@ -83,7 +83,7 @@ export function TeammateQualifyingChart({
           {" | "}
           {total} races
         </p>
-        <ChartContainer config={chartConfig} className="min-h-[250px] w-full">
+        <ChartContainer config={chartConfig} className="h-[180px] w-full">
           <BarChart data={data}>
             <CartesianGrid vertical={false} strokeOpacity={0.2} />
             <XAxis
