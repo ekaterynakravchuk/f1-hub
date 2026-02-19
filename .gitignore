@@ -43,3 +43,7 @@ next-env.d.ts
 #md
 *.md
 /.planning/
+
+# screenshots
+*.png
+*.jpeg
