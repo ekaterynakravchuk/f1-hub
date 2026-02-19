@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 ## Current Position
 
 Phase: 6 of 8 (Radio Data Layer & Audio Hook — in progress)
-Plan: 1 of 3 complete
+Plan: 2 of 3 complete
 Status: Executing
-Last activity: 2026-02-19 — Phase 6 Plan 01 complete (OpenF1 data layer)
+Last activity: 2026-02-19 — Phase 6 Plan 02 complete (correlateRadioContext binary search + vitest)
 
-Progress: [█░░░░░░░░░] ~10% of v1.1
+Progress: [██░░░░░░░░] ~20% of v1.1
 
 ## Performance Metrics
 
@@ -27,6 +27,7 @@ Progress: [█░░░░░░░░░] ~10% of v1.1
 | Phase | Plan | Duration | Tasks | Files |
 |-------|------|----------|-------|-------|
 | 06 | 01 | 7min | 2 | 9 |
+| 06 | 02 | 3min | 2 | 4 |
 
 ## Accumulated Context
 
@@ -42,6 +43,9 @@ Key decisions from v1.0 affecting v1.1:
 - Dark minimalist design — Radio UI must follow same patterns as existing modules
 - Session-scoped query keys: ['openf1', sessionKey, domain] — sessionKey at position 1 enables bulk cache invalidation per session (06-01)
 - fetchPositions always requires driverNumber — full session position data exceeds 100K records; always filter by driver (06-01)
+- findPrecedingIndex not exported — tested through public correlateRadioContext API to keep module surface minimal (06-02)
+- ISO 8601 strings with UTC timezone sort correctly lexicographically — no Date parsing needed in binary search (06-02)
+- Defensive .slice() before sort in correlateRadioContext — never mutate caller arrays (06-02)
 
 ### Blockers/Concerns
 
@@ -54,6 +58,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-19 (Phase 6 Plan 01 execution)
-Stopped at: Completed 06-01-PLAN.md — OpenF1 data layer (types, endpoints, query-keys, 6 hooks)
+Last session: 2026-02-19 (Phase 6 Plan 02 execution)
+Stopped at: Completed 06-02-PLAN.md — correlateRadioContext binary search utility + vitest test infrastructure
 Resume file: None
