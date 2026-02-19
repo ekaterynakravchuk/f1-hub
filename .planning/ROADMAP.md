@@ -139,7 +139,12 @@ Plans:
   3. User can see a chronological list of all radio messages showing driver name and team color accent for each entry
   4. User can tap a radio card to start playback, tap again to pause, and see a seek bar and elapsed/total time in a sticky player that stays visible while scrolling
   5. User can navigate to /radio from both the site navigation menu and the landing page module card
-**Plans:** TBD
+**Plans:** 3 plans
+
+Plans:
+- [ ] 07-01-PLAN.md — Data layer completion: extend useAudioPlayer with seek/time, add drivers and sessions-by-meeting hooks
+- [ ] 07-02-PLAN.md — Session browser and radio list: /radio page, cascaded selectors, virtualized radio list with driver filter
+- [ ] 07-03-PLAN.md — Sticky audio player and navigation wiring
 
 ### Phase 8: Race Context Enrichment
 **Goal**: Users can see the lap number and driver position for each radio message, and see Race Control events overlaid on the radio timeline
@@ -165,5 +170,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 4. Head-to-Head Module | 0/TBD | Not started | - |
 | 5. Quiz Module | 0/2 | Planned | - |
 | 6. Radio Data Layer & Audio Hook | 3/3 | Complete | 2026-02-19 |
-| 7. Radio Catalog UI | 0/TBD | Not started | - |
+| 7. Radio Catalog UI | 0/3 | Planned | - |
 | 8. Race Context Enrichment | 0/TBD | Not started | - |
