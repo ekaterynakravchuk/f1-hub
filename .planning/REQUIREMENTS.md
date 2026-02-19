@@ -186,33 +186,33 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| RDATA-01 | — | Pending |
-| RDATA-02 | — | Pending |
-| RDATA-03 | — | Pending |
-| RDATA-04 | — | Pending |
-| RDATA-05 | — | Pending |
-| SESS-01 | — | Pending |
-| SESS-02 | — | Pending |
-| SESS-03 | — | Pending |
-| SESS-04 | — | Pending |
-| AUDIO-01 | — | Pending |
-| AUDIO-02 | — | Pending |
-| AUDIO-03 | — | Pending |
-| RADIO-01 | — | Pending |
-| RADIO-02 | — | Pending |
-| RADIO-03 | — | Pending |
-| RADIO-04 | — | Pending |
-| RCTX-01 | — | Pending |
-| RCTX-02 | — | Pending |
-| NAV-01 | — | Pending |
-| NAV-02 | — | Pending |
+| RDATA-01 | Phase 6 | Pending |
+| RDATA-02 | Phase 6 | Pending |
+| RDATA-03 | Phase 6 | Pending |
+| RDATA-04 | Phase 6 | Pending |
+| RDATA-05 | Phase 6 | Pending |
+| SESS-01 | Phase 7 | Pending |
+| SESS-02 | Phase 7 | Pending |
+| SESS-03 | Phase 7 | Pending |
+| SESS-04 | Phase 7 | Pending |
+| AUDIO-01 | Phase 7 | Pending |
+| AUDIO-02 | Phase 7 | Pending |
+| AUDIO-03 | Phase 7 | Pending |
+| RADIO-01 | Phase 7 | Pending |
+| RADIO-02 | Phase 7 | Pending |
+| RADIO-03 | Phase 8 | Pending |
+| RADIO-04 | Phase 8 | Pending |
+| RCTX-01 | Phase 8 | Pending |
+| RCTX-02 | Phase 8 | Pending |
+| NAV-01 | Phase 7 | Pending |
+| NAV-02 | Phase 7 | Pending |
 
 **Coverage:**
 - v1.0 requirements: 31 total (31 complete)
 - v1.1 requirements: 20 total
-- Mapped to phases: 0
-- Unmapped: 20
+- Mapped to phases: 20
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-16*
-*Last updated: 2026-02-19 after milestone v1.1 requirements definition*
+*Last updated: 2026-02-19 after milestone v1.1 roadmap creation*

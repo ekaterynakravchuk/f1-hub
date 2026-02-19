@@ -5,14 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Users can explore and compare F1 data interactively — any driver, any season, any stat — in one place with beautiful visualizations.
-**Current focus:** Milestone v1.1 — Radio module
+**Current focus:** Milestone v1.1 — Radio module (Phase 6 next)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 6 of 8 (Radio Data Layer & Audio Hook — not started)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-02-19 — Milestone v1.1 started
+Status: Ready to plan
+Last activity: 2026-02-19 — v1.1 roadmap created (Phases 6–8)
+
+Progress: [░░░░░░░░░░] 0% of v1.1
 
 ## Performance Metrics
 
@@ -29,26 +31,22 @@ Decisions are logged in PROJECT.md Key Decisions table.
 Key decisions from v1.0 affecting v1.1:
 
 - OpenF1 client already created as base infrastructure (Phase 2) — Radio module will use it
-- Hand-rolled TokenBucketQueue for rate limiting — OpenF1 3 req/s limit applies to radio endpoints
-- staleTime: Infinity for historical data — radio recordings are immutable
+- Hand-rolled TokenBucketQueue for rate limiting — OpenF1 3 req/s limit applies; 30 req/min is the binding constraint for radio browsing
+- staleTime: Infinity for historical data — radio recordings are immutable; query keys must be scoped per-session to prevent re-fetch on driver filter changes
 - Client-side data fetching only — no backend, all from OpenF1 API directly
-- Dark minimalist design — Radio UI must follow same patterns
+- Dark minimalist design — Radio UI must follow same patterns as existing modules
 
-### Roadmap Evolution
+### Blockers/Concerns
 
-- v1.0 completed: Phases 1–5 (Infrastructure, Data Layer, Components, Head-to-Head, Quiz)
-- v1.1 started: Radio module — team radio catalog with race context
+- Phase 6: CORS behavior of livetiming.formula1.com CDN must be smoke-tested on deployed Vercel origin (not localhost) before Phase 7 begins. If blocked, a server-side audio proxy route is required (~1–2 days rework).
+- Phase 8: Position data volume (~20K records per driver per race) must be empirically validated with a real API call to choose between bounded date-window query vs. full per-driver fetch.
 
 ### Pending Todos
 
 None.
 
-### Blockers/Concerns
-
-None.
-
 ## Session Continuity
 
-Last session: 2026-02-19 (milestone v1.1 initialization)
-Stopped at: Defining requirements for Radio module
+Last session: 2026-02-19 (milestone v1.1 roadmap creation)
+Stopped at: Roadmap written — Phases 6, 7, 8 defined. Ready to plan Phase 6.
 Resume file: None

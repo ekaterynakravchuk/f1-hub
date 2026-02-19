@@ -4,6 +4,8 @@
 
 This roadmap delivers a Formula 1 data visualization web application from foundation to first feature. Phase 1 establishes the Next.js project with UI infrastructure. Phase 2 builds the data layer connecting to Jolpica and OpenF1 APIs with rate-limited clients and React Query hooks. Phase 3 creates reusable components and utilities for driver selection, season selection, and data formatting. Phase 4 implements the Head-to-Head module where users can compare any two drivers side-by-side with interactive visualizations.
 
+Phases 6–8 deliver the v1.1 Radio module: a browsable team radio catalog with audio playback and race context powered by the OpenF1 API (2023+ data).
+
 ## Phases
 
 **Phase Numbering:**
@@ -17,6 +19,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 3: Shared Components & Utilities** - Reusable selectors, loading states, and formatting helpers
 - [ ] **Phase 4: Head-to-Head Module** - Complete driver comparison feature with charts and shareable URLs
 - [ ] **Phase 5: Quiz Module** - Procedurally generated F1 trivia with game modes and score tracking
+- [ ] **Phase 6: Radio Data Layer & Audio Hook** - OpenF1 radio endpoints, React Query hooks, timestamp correlation utility, and SSR-safe audio hook
+- [ ] **Phase 7: Radio Catalog UI** - Session browser, chronological radio list with driver identity, sticky audio player, driver filter, and navigation wiring
+- [ ] **Phase 8: Race Context Enrichment** - Lap number and driver position badges per radio message, Race Control event overlay and proximity indicators
 
 ## Phase Details
 
@@ -89,19 +94,6 @@ Plans:
 - [ ] 04-02: TBD
 - [ ] 04-03: TBD
 
-## Progress
-
-**Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
-
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Project Setup & Infrastructure | 0/2 | Planned | - |
-| 2. Data Layer Foundation | 0/2 | Planned | - |
-| 3. Shared Components & Utilities | 0/2 | Planned | - |
-| 4. Head-to-Head Module | 0/TBD | Not started | - |
-| 5. Quiz Module | 0/2 | Planned | - |
-
 ### Phase 5: Quiz Module
 **Goal**: Users can play procedurally generated F1 trivia games with multiple modes and track their scores
 **Depends on**: Phase 4
@@ -119,3 +111,54 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 Plans:
 - [ ] 05-01-PLAN.md — useLocalStorage hook, Fisher-Yates shuffle utility, and 3 pure question generator functions (guess driver, higher/lower, guess race)
 - [ ] 05-02-PLAN.md — QuizClient FSM with useReducer, ModeSelect, 3 game mode components, ScoreBoard, and /quiz page integration
+
+### Phase 6: Radio Data Layer & Audio Hook
+**Goal**: Developers can fetch all radio-related data from OpenF1, correlate timestamps to lap context, and safely instantiate audio in a Next.js SSR environment
+**Depends on**: Phase 5
+**Requirements**: RDATA-01, RDATA-02, RDATA-03, RDATA-04, RDATA-05
+**Success Criteria** (what must be TRUE):
+  1. Developer can import typed fetch functions for /team_radio, /race_control, /sessions, /meetings, /laps, and /position endpoints and receive correctly typed responses
+  2. Developer can use six React Query hooks (useTeamRadio, useRaceControl, useOpenF1Sessions, useOpenF1Meetings, useDriverLaps, usePositions) all caching with staleTime: Infinity and scoped per-session query keys
+  3. Developer can call correlateRadioContext(radio, laps, positions) and receive the nearest preceding lap number and driver position for each radio message via binary search
+  4. Developer can use the useAudioPlayer hook in any Next.js page without triggering a build-time SSR crash, confirmed by a successful next build output
+  5. A real team radio recording_url plays successfully from the deployed Vercel origin, confirming the F1 CDN does not block cross-origin audio playback
+**Plans:** TBD
+
+### Phase 7: Radio Catalog UI
+**Goal**: Users can browse, filter, and listen to team radio recordings for any 2023+ session using a virtualized list and a sticky audio player
+**Depends on**: Phase 6
+**Requirements**: SESS-01, SESS-02, SESS-03, SESS-04, AUDIO-01, AUDIO-02, AUDIO-03, RADIO-01, RADIO-02, NAV-01, NAV-02
+**Success Criteria** (what must be TRUE):
+  1. User can select a season (2023+), a race meeting, and a session type in sequence, with each selector appearing only after the previous selection is made
+  2. User can filter the radio list to a single driver using pill toggles, and the list updates without re-fetching data from the API
+  3. User can see a chronological list of all radio messages showing driver name and team color accent for each entry
+  4. User can tap a radio card to start playback, tap again to pause, and see a seek bar and elapsed/total time in a sticky player that stays visible while scrolling
+  5. User can navigate to /radio from both the site navigation menu and the landing page module card
+**Plans:** TBD
+
+### Phase 8: Race Context Enrichment
+**Goal**: Users can see the lap number and driver position for each radio message, and see Race Control events overlaid on the radio timeline
+**Depends on**: Phase 7
+**Requirements**: RADIO-03, RADIO-04, RCTX-01, RCTX-02
+**Success Criteria** (what must be TRUE):
+  1. User can see the lap number when each radio message was sent, displayed as a badge on the radio card
+  2. User can see the driver's race position (e.g., P3) when each radio message was sent, displayed as a badge on the radio card
+  3. User can see Race Control events (Safety Car deployments, red flags, yellow flags, DRS enabled/disabled) displayed chronologically on the radio timeline
+  4. User can see a proximity indicator on a radio card when a Race Control event occurred within 30 seconds of that transmission
+**Plans:** TBD
+
+## Progress
+
+**Execution Order:**
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 1. Project Setup & Infrastructure | 0/2 | Planned | - |
+| 2. Data Layer Foundation | 0/2 | Planned | - |
+| 3. Shared Components & Utilities | 0/2 | Planned | - |
+| 4. Head-to-Head Module | 0/TBD | Not started | - |
+| 5. Quiz Module | 0/2 | Planned | - |
+| 6. Radio Data Layer & Audio Hook | 0/TBD | Not started | - |
+| 7. Radio Catalog UI | 0/TBD | Not started | - |
+| 8. Race Context Enrichment | 0/TBD | Not started | - |
