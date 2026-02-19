@@ -1,5 +1,6 @@
 import { openf1Fetch } from "@/lib/api/openf1/client";
 import type {
+  OpenF1Driver,
   OpenF1TeamRadio,
   OpenF1RaceControl,
   OpenF1Session,
@@ -73,4 +74,25 @@ export async function fetchPositions(
   return openf1Fetch<OpenF1Position[]>(
     `/position?session_key=${sessionKey}&driver_number=${driverNumber}`
   );
+}
+
+/**
+ * Fetch all drivers for a session.
+ * Returns driver roster including full_name, name_acronym, team_colour.
+ */
+export async function fetchDrivers(
+  sessionKey: number
+): Promise<OpenF1Driver[]> {
+  return openf1Fetch<OpenF1Driver[]>(`/drivers?session_key=${sessionKey}`);
+}
+
+/**
+ * Fetch all sessions for a specific meeting (race weekend).
+ * More targeted than fetchSessions(year) — returns only 3-6 sessions
+ * for the selected meeting instead of ~125 for the full year.
+ */
+export async function fetchSessionsByMeeting(
+  meetingKey: number
+): Promise<OpenF1Session[]> {
+  return openf1Fetch<OpenF1Session[]>(`/sessions?meeting_key=${meetingKey}`);
 }

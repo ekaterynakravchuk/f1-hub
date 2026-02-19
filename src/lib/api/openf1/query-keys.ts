@@ -35,4 +35,12 @@ export const openf1Keys = {
   /** Per-driver position data for a session — always filtered by driverNumber */
   positions: (sessionKey: number, driverNumber: number) =>
     [...openf1Keys.all, sessionKey, "positions", driverNumber] as const,
+
+  /** All drivers for a session */
+  drivers: (sessionKey: number) =>
+    [...openf1Keys.all, sessionKey, "drivers"] as const,
+
+  /** All sessions for a specific meeting (race weekend) */
+  sessionsByMeeting: (meetingKey: number) =>
+    [...openf1Keys.all, "sessions", "meeting", meetingKey] as const,
 } as const;
