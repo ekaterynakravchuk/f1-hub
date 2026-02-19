@@ -23,8 +23,8 @@ const modules = [
   {
     name: "Team Radio",
     description: "Browse and listen to team radio communications",
-    href: "#",
-    status: "Planned",
+    href: "/radio",
+    status: null,
   },
   {
     name: "History",

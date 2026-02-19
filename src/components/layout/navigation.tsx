@@ -8,6 +8,7 @@ const navLinks = [
   { name: "Home", href: "/" },
   { name: "Head-to-Head", href: "/head-to-head" },
   { name: "Quiz", href: "/quiz" },
+  { name: "Team Radio", href: "/radio" },
 ];
 
 export function Navigation() {
