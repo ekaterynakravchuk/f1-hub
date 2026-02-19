@@ -122,7 +122,12 @@ Plans:
   3. Developer can call correlateRadioContext(radio, laps, positions) and receive the nearest preceding lap number and driver position for each radio message via binary search
   4. Developer can use the useAudioPlayer hook in any Next.js page without triggering a build-time SSR crash, confirmed by a successful next build output
   5. A real team radio recording_url plays successfully from the deployed Vercel origin, confirming the F1 CDN does not block cross-origin audio playback
-**Plans:** TBD
+**Plans:** 3 plans
+
+Plans:
+- [ ] 06-01-PLAN.md — OpenF1 types, endpoints, query-keys, and 6 React Query hooks
+- [ ] 06-02-PLAN.md — correlateRadioContext binary search utility (TDD)
+- [ ] 06-03-PLAN.md — SSR-safe useAudioPlayer hook and CORS smoke test
 
 ### Phase 7: Radio Catalog UI
 **Goal**: Users can browse, filter, and listen to team radio recordings for any 2023+ session using a virtualized list and a sticky audio player
@@ -159,6 +164,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 3. Shared Components & Utilities | 0/2 | Planned | - |
 | 4. Head-to-Head Module | 0/TBD | Not started | - |
 | 5. Quiz Module | 0/2 | Planned | - |
-| 6. Radio Data Layer & Audio Hook | 0/TBD | Not started | - |
+| 6. Radio Data Layer & Audio Hook | 0/3 | Planned | - |
 | 7. Radio Catalog UI | 0/TBD | Not started | - |
 | 8. Race Context Enrichment | 0/TBD | Not started | - |
