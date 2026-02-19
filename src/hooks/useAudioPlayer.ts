@@ -8,6 +8,8 @@ export function useAudioPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [state, setState] = useState<AudioState>("idle");
   const [currentUrl, setCurrentUrl] = useState<string | null>(null);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   // Initialize Audio element only on client — never at module scope or hook body.
   // new Audio() does not exist in Node.js; calling it outside useEffect crashes next build.
@@ -28,6 +30,10 @@ export function useAudioPlayer() {
     // if the browser fires canplay mid-playback.
     const onCanPlay = () =>
       setState((prev) => (prev === "loading" ? "paused" : prev));
+    // timeupdate fires ~4 times/second — acceptable for seek bar smoothness.
+    const onTimeUpdate = () => setCurrentTime(el.currentTime);
+    const onDurationChange = () =>
+      setDuration(isFinite(el.duration) ? el.duration : 0);
 
     el.addEventListener("playing", onPlaying);
     el.addEventListener("pause", onPause);
@@ -35,6 +41,8 @@ export function useAudioPlayer() {
     el.addEventListener("error", onError);
     el.addEventListener("loadstart", onLoadStart);
     el.addEventListener("canplay", onCanPlay);
+    el.addEventListener("timeupdate", onTimeUpdate);
+    el.addEventListener("durationchange", onDurationChange);
 
     return () => {
       el.pause();
@@ -46,6 +54,8 @@ export function useAudioPlayer() {
       el.removeEventListener("error", onError);
       el.removeEventListener("loadstart", onLoadStart);
       el.removeEventListener("canplay", onCanPlay);
+      el.removeEventListener("timeupdate", onTimeUpdate);
+      el.removeEventListener("durationchange", onDurationChange);
     };
   }, []); // empty deps — runs once on mount, never on server
 
@@ -74,9 +84,17 @@ export function useAudioPlayer() {
     if (!audioRef.current) return;
     audioRef.current.pause();
     audioRef.current.currentTime = 0;
+    setCurrentTime(0);
+    setDuration(0);
     setState("idle");
     setCurrentUrl(null);
   }, []);
 
-  return { state, currentUrl, load, play, pause, stop } as const;
+  /** Seek to a specific time in seconds. */
+  const seek = useCallback((seconds: number) => {
+    if (!audioRef.current) return;
+    audioRef.current.currentTime = seconds;
+  }, []);
+
+  return { state, currentUrl, currentTime, duration, load, play, pause, stop, seek } as const;
 }
