@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect, useCallback } from "react";
 import { SessionBrowser } from "@/components/radio/SessionBrowser";
 import { DriverFilterPills } from "@/components/radio/DriverFilterPills";
 import { RadioList } from "@/components/radio/RadioList";
+import { StickyAudioPlayer } from "@/components/radio/StickyAudioPlayer";
 import { useTeamRadio } from "@/hooks/useTeamRadio";
 import { useOpenF1Drivers } from "@/hooks/useOpenF1Drivers";
 import { useAudioPlayer } from "@/hooks/useAudioPlayer";
@@ -15,7 +16,7 @@ export function RadioClient() {
 
   const { data: radio } = useTeamRadio(sessionKey);
   const { data: drivers } = useOpenF1Drivers(sessionKey);
-  const { state, currentUrl, load, play, pause } = useAudioPlayer();
+  const { state, currentUrl, currentTime, duration, load, play, pause, seek } = useAudioPlayer();
 
   // Reset active driver filter when session changes
   useEffect(() => {
@@ -34,6 +35,16 @@ export function RadioClient() {
     if (activeDriverNumber === null) return radio;
     return radio.filter((r) => r.driver_number === activeDriverNumber);
   }, [radio, activeDriverNumber]);
+
+  // Derive the radio entry and driver info for the currently playing track
+  const playingRadio = useMemo(
+    () => radio?.find((r) => r.recording_url === currentUrl) ?? null,
+    [radio, currentUrl]
+  );
+  const playingDriver = useMemo(
+    () => (playingRadio ? (driverMap.get(playingRadio.driver_number) ?? null) : null),
+    [playingRadio, driverMap]
+  );
 
   const handleTapRadio = useCallback(
     (entry: OpenF1TeamRadio) => {
@@ -89,7 +100,17 @@ export function RadioClient() {
         </>
       )}
 
-      {/* StickyAudioPlayer will be added here in Plan 03 */}
+      <StickyAudioPlayer
+        state={state}
+        driverName={playingDriver?.full_name ?? null}
+        driverAcronym={playingDriver?.name_acronym ?? null}
+        teamColour={playingDriver?.team_colour ?? null}
+        currentTime={currentTime}
+        duration={duration}
+        onPlay={play}
+        onPause={pause}
+        onSeek={seek}
+      />
     </div>
   );
 }
