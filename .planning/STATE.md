@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Users can explore and compare F1 data interactively — any driver, any season, any stat — in one place with beautiful visualizations.
-**Current focus:** Milestone v1.1 — Radio module (Phase 6 next)
+**Current focus:** Milestone v1.1 — Radio module (Phase 6 in progress)
 
 ## Current Position
 
-Phase: 6 of 8 (Radio Data Layer & Audio Hook — not started)
-Plan: —
-Status: Ready to plan
-Last activity: 2026-02-19 — v1.1 roadmap created (Phases 6–8)
+Phase: 6 of 8 (Radio Data Layer & Audio Hook — in progress)
+Plan: 1 of 3 complete
+Status: Executing
+Last activity: 2026-02-19 — Phase 6 Plan 01 complete (OpenF1 data layer)
 
-Progress: [░░░░░░░░░░] 0% of v1.1
+Progress: [█░░░░░░░░░] ~10% of v1.1
 
 ## Performance Metrics
 
@@ -22,6 +22,11 @@ Progress: [░░░░░░░░░░] 0% of v1.1
 - Total plans completed: 11
 - Average duration: 8.55 minutes
 - Total execution time: 1.57 hours
+
+**v1.1 execution:**
+| Phase | Plan | Duration | Tasks | Files |
+|-------|------|----------|-------|-------|
+| 06 | 01 | 7min | 2 | 9 |
 
 ## Accumulated Context
 
@@ -35,6 +40,8 @@ Key decisions from v1.0 affecting v1.1:
 - staleTime: Infinity for historical data — radio recordings are immutable; query keys must be scoped per-session to prevent re-fetch on driver filter changes
 - Client-side data fetching only — no backend, all from OpenF1 API directly
 - Dark minimalist design — Radio UI must follow same patterns as existing modules
+- Session-scoped query keys: ['openf1', sessionKey, domain] — sessionKey at position 1 enables bulk cache invalidation per session (06-01)
+- fetchPositions always requires driverNumber — full session position data exceeds 100K records; always filter by driver (06-01)
 
 ### Blockers/Concerns
 
@@ -47,6 +54,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-19 (milestone v1.1 roadmap creation)
-Stopped at: Roadmap written — Phases 6, 7, 8 defined. Ready to plan Phase 6.
+Last session: 2026-02-19 (Phase 6 Plan 01 execution)
+Stopped at: Completed 06-01-PLAN.md — OpenF1 data layer (types, endpoints, query-keys, 6 hooks)
 Resume file: None
