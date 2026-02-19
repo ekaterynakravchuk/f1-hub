@@ -5,30 +5,30 @@
 See: .planning/PROJECT.md (updated 2026-02-16)
 
 **Core value:** Users can explore and compare F1 data interactively — any driver, any season, any stat — in one place with beautiful visualizations.
-**Current focus:** Phase 2 - Data Layer Foundation
+**Current focus:** Phase 2 - Data Layer Foundation (COMPLETE)
 
 ## Current Position
 
-Phase: 2 of 4 (Data Layer Foundation)
-Plan: 1 of 2 in current phase
-Status: Executing
-Last activity: 2026-02-19 — Completed plan 02-01 (API clients, types, schemas, query keys)
+Phase: 2 of 4 (Data Layer Foundation) - COMPLETE
+Plan: 2 of 2 in current phase (all plans complete)
+Status: Phase Complete
+Last activity: 2026-02-19 — Completed plan 02-02 (React Query hooks for Jolpica data)
 
-Progress: [██████████████████████████████] 75% (3/4 plans complete across all phases)
+Progress: [████████████████████████████████████] 100% (4/4 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 3.77 minutes
-- Total execution time: 0.19 hours
+- Total plans completed: 4
+- Average duration: 4.05 minutes
+- Total execution time: 0.27 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01 | 2 | 7.8m | 3.9m |
-| 02 | 1 | 3.0m | 3.0m |
+| 02 | 2 | 8.2m | 4.1m |
 
 **Recent Completions:**
 
@@ -37,6 +37,7 @@ Progress: [███████████████████████
 | 01-01 | 4.65m (279s) | 2 | 13 | 2026-02-16 |
 | 01-02 | 3.15m | 2 | 8 | 2026-02-16 |
 | 02-01 | 3.0m (177s) | 2 | 8 | 2026-02-19 |
+| 02-02 | 5.2m | 2 | 7 | 2026-02-19 |
 
 ## Accumulated Context
 
@@ -60,6 +61,10 @@ Recent decisions affecting current work:
 - Zod validates only 3 critical endpoints (02-01): Drivers, Results, Standings — skip simpler Season/Race shapes
 - retry: 2 global in QueryProvider (02-01): consistent silent retry behavior across all hooks with exponential backoff
 - OpenF1 client created now as base infrastructure (02-01): hooks deferred to later phases per ROADMAP
+- gcTime: Infinity on useDrivers (02-02): all ~874 drivers are reference data needed across modules, must not be GC'd between navigations
+- skipToken over enabled: false (02-02): React Query v5 recommended pattern, provides better TypeScript type narrowing for conditional queries
+- fetchQualifying has no Zod validation (02-02): qualifying is not a critical endpoint per RESEARCH.md, shape is simple
+- fetchSeasons future-proofs with pagination guard (02-02): only 75 seasons today but >100 case handled to avoid silent future bug
 
 ### Pending Todos
 
@@ -72,5 +77,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19 (plan execution)
-Stopped at: Completed 02-01-PLAN.md - API clients, types, Zod schemas, query keys
+Stopped at: Completed 02-02-PLAN.md - React Query hooks (useDrivers, useDriverResults, useQualifying, useStandings, useSeasons, useRaces)
 Resume file: None
