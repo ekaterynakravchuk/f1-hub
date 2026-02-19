@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 
 ## Current Position
 
-Phase: 3 of 4 (Shared Components & Utilities) - IN PROGRESS
-Plan: 1 of 2 complete
-Status: In Progress
-Last activity: 2026-02-19 — Completed plan 03-01 (shadcn primitives, utility modules, skeleton/error components)
+Phase: 3 of 4 (Shared Components & Utilities) - COMPLETE
+Plan: 2 of 2 complete
+Status: Phase 3 complete, ready for Phase 4
+Last activity: 2026-02-19 — Completed plan 03-02 (SeasonSelect, RaceSelect, DriverSelect components)
 
-Progress: [█████████████████████████████████████████] 63% (5/8 plans complete across all phases)
+Progress: [█████████████████████████████████████████████████] 75% (6/8 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 3.68 minutes
-- Total execution time: 0.31 hours
+- Total plans completed: 6
+- Average duration: 3.39 minutes
+- Total execution time: 0.34 hours
 
 **By Phase:**
 
@@ -29,7 +29,7 @@ Progress: [███████████████████████
 |-------|-------|-------|----------|
 | 01 | 2 | 7.8m | 3.9m |
 | 02 | 2 | 8.2m | 4.1m |
-| 03 | 1 | 2.2m | 2.2m |
+| 03 | 2 | 4.0m | 2.0m |
 
 **Recent Completions:**
 
@@ -40,6 +40,7 @@ Progress: [███████████████████████
 | 02-01 | 3.0m (177s) | 2 | 8 | 2026-02-19 |
 | 02-02 | 5.2m | 2 | 7 | 2026-02-19 |
 | 03-01 | 2.2m (130s) | 2 | 13 | 2026-02-19 |
+| 03-02 | 1.8m (110s) | 2 | 3 | 2026-02-19 |
 
 ## Accumulated Context
 
@@ -69,6 +70,8 @@ Recent decisions affecting current work:
 - fetchSeasons future-proofs with pagination guard (02-02): only 75 seasons today but >100 case handled to avoid silent future bug
 - [Phase 03]: Team colors applied via inline style not Tailwind dynamic classes — Tailwind v4 purges arbitrary dynamic values at build time
 - [Phase 03]: formatMillis wraps formatLapTime to handle Jolpica Time.millis string field (string before parsing)
+- [Phase 03]: teamMap prop for optional team display in DriverSelect rows — avoids additional API calls inside component, consumers inject context
+- [Phase 03]: RaceSelect renders disabled Select (not skeleton) when no season — clearer UX than empty state
 
 ### Pending Todos
 
@@ -81,5 +84,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19 (plan execution)
-Stopped at: Completed 03-01-PLAN.md - shadcn primitives, utility modules (teamColors, formatLapTime, nationalityFlag), skeleton/error components
+Stopped at: Completed 03-02-PLAN.md - SeasonSelect, RaceSelect, DriverSelect selector components
 Resume file: None
