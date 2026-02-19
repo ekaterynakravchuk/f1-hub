@@ -76,3 +76,57 @@ export interface OpenF1Weather {
   wind_direction: number; // degrees
   wind_speed: number; // m/s
 }
+
+/** Race control events — safety car, flags, DRS zones, etc. Source: openf1.org/docs */
+export interface OpenF1RaceControl {
+  category: string; // e.g. "Flag", "SafetyCar", "DRS"
+  date: string; // datetime
+  driver_number: number | null;
+  flag: string | null; // e.g. "GREEN", "YELLOW", "RED"
+  lap_number: number | null;
+  meeting_key: number;
+  message: string;
+  qualifying_phase: number | null;
+  scope: string | null; // e.g. "Track", "Sector"
+  sector: number | null; // 1, 2, or 3
+  session_key: number;
+}
+
+/** Session metadata — race, qualifying, practice, sprint, etc. Source: openf1.org/docs */
+export interface OpenF1Session {
+  circuit_key: number;
+  circuit_short_name: string; // e.g. "Silverstone"
+  country_code: string; // ISO 3166-1 alpha-3
+  country_key: number;
+  country_name: string;
+  date_end: string; // datetime
+  date_start: string; // datetime
+  gmt_offset: string; // e.g. "+01:00"
+  location: string; // city/circuit name
+  meeting_key: number;
+  session_key: number;
+  session_name: string; // e.g. "Race", "Qualifying"
+  session_type: string; // e.g. "Race", "Qualifying", "Practice"
+  year: number;
+}
+
+/** Meeting (race weekend) metadata. Source: openf1.org/docs */
+export interface OpenF1Meeting {
+  circuit_key: number;
+  circuit_image: string; // URL to circuit image
+  circuit_info_url: string; // URL to circuit info
+  circuit_short_name: string; // e.g. "Silverstone"
+  circuit_type: string; // e.g. "permanent", "street"
+  country_code: string; // ISO 3166-1 alpha-3
+  country_flag: string; // URL to country flag image
+  country_key: number;
+  country_name: string;
+  date_end: string; // datetime
+  date_start: string; // datetime
+  gmt_offset: string; // e.g. "+01:00"
+  location: string; // city/circuit name
+  meeting_key: number;
+  meeting_name: string; // e.g. "British Grand Prix"
+  meeting_official_name: string; // e.g. "Formula 1 Aramco British Grand Prix 2024"
+  year: number;
+}
