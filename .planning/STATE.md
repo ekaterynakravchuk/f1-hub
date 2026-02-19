@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-16)
 
 **Core value:** Users can explore and compare F1 data interactively — any driver, any season, any stat — in one place with beautiful visualizations.
-**Current focus:** Phase 3 - Shared Components & Utilities (IN PROGRESS)
+**Current focus:** Phase 4 - Head-to-Head Module (IN PROGRESS)
 
 ## Current Position
 
-Phase: 3 of 4 (Shared Components & Utilities) - COMPLETE
-Plan: 2 of 2 complete
-Status: Phase 3 complete, ready for Phase 4
-Last activity: 2026-02-19 — Completed plan 03-02 (SeasonSelect, RaceSelect, DriverSelect components)
+Phase: 4 of 4 (Head-to-Head Module) - IN PROGRESS
+Plan: 1 of 2 complete
+Status: Plan 04-01 complete, ready for 04-02
+Last activity: 2026-02-19 — Completed plan 04-01 (career endpoints, query keys, hooks, stat utilities)
 
-Progress: [█████████████████████████████████████████████████] 75% (6/8 plans complete across all phases)
+Progress: [█████████████████████████████████████████████████████████] 87.5% (7/8 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 3.39 minutes
-- Total execution time: 0.34 hours
+- Total plans completed: 7
+- Average duration: 4.57 minutes
+- Total execution time: 0.53 hours
 
 **By Phase:**
 
@@ -30,6 +30,7 @@ Progress: [███████████████████████
 | 01 | 2 | 7.8m | 3.9m |
 | 02 | 2 | 8.2m | 4.1m |
 | 03 | 2 | 4.0m | 2.0m |
+| 04 | 1 | 15m | 15m |
 
 **Recent Completions:**
 
@@ -41,6 +42,7 @@ Progress: [███████████████████████
 | 02-02 | 5.2m | 2 | 7 | 2026-02-19 |
 | 03-01 | 2.2m (130s) | 2 | 13 | 2026-02-19 |
 | 03-02 | 1.8m (110s) | 2 | 3 | 2026-02-19 |
+| 04-01 | 15m (896s) | 2 | 8 | 2026-02-19 |
 
 ## Accumulated Context
 
@@ -72,6 +74,10 @@ Recent decisions affecting current work:
 - [Phase 03]: formatMillis wraps formatLapTime to handle Jolpica Time.millis string field (string before parsing)
 - [Phase 03]: teamMap prop for optional team display in DriverSelect rows — avoids additional API calls inside component, consumers inject context
 - [Phase 03]: RaceSelect renders disabled Select (not skeleton) when no season — clearer UX than empty state
+- [Phase 04-01]: useCareerStandings uses useQueries + combine for parallel per-season fetching — avoids waterfall when driver has many seasons
+- [Phase 04-01]: isDNF classifies "Finished" and "+N Laps" as finishes — all other statuses are DNFs
+- [Phase 04-01]: Grid position 0 excluded from avgGridPosition — pit lane starts not representative
+- [Phase 04-01]: officialCareerPoints from standings.points totals, careerPoints from summed race points — both available for different use cases
 
 ### Pending Todos
 
@@ -84,5 +90,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19 (plan execution)
-Stopped at: Completed 03-02-PLAN.md - SeasonSelect, RaceSelect, DriverSelect selector components
+Stopped at: Completed 04-01-PLAN.md - Career data infrastructure, hooks, and stat utilities
 Resume file: None
