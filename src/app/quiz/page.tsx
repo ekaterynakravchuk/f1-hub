@@ -1,4 +1,4 @@
-import { QuizClient } from "@/components/quiz/QuizClient";
+import { ModeSelect } from "@/components/quiz/ModeSelect";
 
 export default function QuizPage() {
   return (
@@ -8,7 +8,7 @@ export default function QuizPage() {
         Test your Formula 1 knowledge
       </p>
       <div className="mt-8">
-        <QuizClient />
+        <ModeSelect />
       </div>
     </div>
   );

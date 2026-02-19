@@ -1,15 +1,6 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
-
-function getSnapshot<T>(key: string, initialValue: T): T {
-  try {
-    const item = window.localStorage.getItem(key);
-    return item !== null ? (JSON.parse(item) as T) : initialValue;
-  } catch {
-    return initialValue;
-  }
-}
+import { useCallback, useRef, useSyncExternalStore } from "react";
 
 function subscribe(key: string, callback: () => void): () => void {
   const handler = (event: StorageEvent) => {
@@ -25,9 +16,29 @@ export function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T, (value: T | ((prev: T) => T)) => void] {
+  // Cache parsed value to return stable reference between renders.
+  // useSyncExternalStore uses Object.is() — without caching, JSON.parse
+  // returns a new object every call, causing an infinite re-render loop.
+  const cache = useRef<{ raw: string | null; parsed: T }>({
+    raw: null,
+    parsed: initialValue,
+  });
+
+  const getSnapshot = (): T => {
+    try {
+      const raw = window.localStorage.getItem(key);
+      if (raw === cache.current.raw) return cache.current.parsed;
+      const parsed = raw !== null ? (JSON.parse(raw) as T) : initialValue;
+      cache.current = { raw, parsed };
+      return parsed;
+    } catch {
+      return initialValue;
+    }
+  };
+
   const value = useSyncExternalStore(
     (callback) => subscribe(key, callback),
-    () => getSnapshot(key, initialValue),
+    getSnapshot,
     () => initialValue
   );
 
@@ -36,7 +47,7 @@ export function useLocalStorage<T>(
       try {
         const resolved =
           typeof newValue === "function"
-            ? (newValue as (prev: T) => T)(getSnapshot(key, initialValue))
+            ? (newValue as (prev: T) => T)(getSnapshot())
             : newValue;
         window.localStorage.setItem(key, JSON.stringify(resolved));
         // Dispatch synthetic StorageEvent so useSyncExternalStore picks up same-tab changes

@@ -12,13 +12,13 @@ const modules = [
     description:
       "Compare any two F1 drivers side-by-side with statistics and interactive charts",
     href: "/head-to-head",
-    status: "Coming Soon",
+    status: null,
   },
   {
     name: "Quiz",
     description: "Test your Formula 1 knowledge with procedurally generated questions",
     href: "/quiz",
-    status: "Coming Soon",
+    status: null,
   },
   {
     name: "Team Radio",
@@ -80,9 +80,6 @@ export default function Home() {
                     <CardHeader>
                       <div className="flex items-start justify-between">
                         <CardTitle>{module.name}</CardTitle>
-                        <span className="text-xs text-muted-foreground">
-                          {module.status}
-                        </span>
                       </div>
                       <CardDescription>{module.description}</CardDescription>
                     </CardHeader>
