@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 ## Current Position
 
 Phase: 7 of 8 (Radio Catalog UI — in progress)
-Plan: 1 of 3 complete
+Plan: 2 of 3 complete
 Status: Executing
-Last activity: 2026-02-19 — Phase 7 Plan 01 complete (data layer gaps filled)
+Last activity: 2026-02-19 — Phase 7 Plan 02 complete (Radio Catalog UI components built)
 
-Progress: [████░░░░░░] ~40% of v1.1
+Progress: [█████░░░░░] ~55% of v1.1
 
 ## Performance Metrics
 
@@ -30,6 +30,7 @@ Progress: [████░░░░░░] ~40% of v1.1
 | 06 | 02 | 5min | 3 | 5 |
 | 06 | 03 | 4min | 1 | 1 |
 | 07 | 01 | 2min | 2 | 6 |
+| 07 | 02 | 6min | 2 | 6 |
 
 ## Accumulated Context
 
@@ -53,6 +54,12 @@ Key decisions from Phase 6 Plans 02-03 (v1.1):
 - [Phase 07]: timeupdate fires ~4x/second — no debounce added for seek bar smoothness
 - [Phase 07]: sessionsByMeeting uses session/meeting/meetingKey key structure to avoid collision with year-scoped sessions key
 
+Key decisions from Phase 07 Plan 02 (v1.1):
+- RadioList empty state single message covers pre-selection and zero-results — avoids needing to distinguish "no session" vs "session has no radio" at list level
+- SessionBrowser cascades resets via useEffect on dep changes — meetingKey/sessionKey clear before API re-fetch on upstream change
+- Team color prepend '#' to OpenF1 team_colour field — returned without # prefix, must be added in UI layer
+- useVirtualizer translateY pattern used in RadioList — GPU-composited scroll vs top positioning
+
 ### Blockers/Concerns
 
 - ~~Phase 7 CORS~~ — RESOLVED: Audio playback from livetiming.formula1.com works on f1-hub-data.vercel.app (tested 2026-02-19 via Playwright). No /api/radio-proxy needed.
@@ -64,6 +71,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-19 (Phase 7 Plan 01 execution — data layer gaps complete)
-Stopped at: Completed 07-01-PLAN.md — useAudioPlayer extended, drivers/sessions-by-meeting hooks added, formatAudioTime utility created
+Last session: 2026-02-19 (Phase 7 Plan 02 execution — Radio Catalog UI components complete)
+Stopped at: Completed 07-02-PLAN.md — /radio page, RadioClient, SessionBrowser, DriverFilterPills, RadioCard, RadioList built
 Resume file: None
