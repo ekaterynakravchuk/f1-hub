@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Users can explore and compare F1 data interactively — any driver, any season, any stat — in one place with beautiful visualizations.
-**Current focus:** Milestone v1.1 — Radio module (Phase 6 in progress)
+**Current focus:** Milestone v1.1 — Radio module (Phase 6 complete, Phase 7 next)
 
 ## Current Position
 
-Phase: 6 of 8 (Radio Data Layer & Audio Hook — in progress)
-Plan: 2 of 3 complete
-Status: Executing
-Last activity: 2026-02-19 — Phase 6 Plan 02 complete (correlateRadioContext binary search + vitest)
+Phase: 6 of 8 (Radio Data Layer & Audio Hook — complete)
+Plan: 3 of 3 complete
+Status: Phase 6 complete — ready for Phase 7
+Last activity: 2026-02-19 — Phase 6 Plan 03 complete (SSR-safe useAudioPlayer hook)
 
-Progress: [██░░░░░░░░] ~20% of v1.1
+Progress: [███░░░░░░░] ~30% of v1.1
 
 ## Performance Metrics
 
@@ -27,7 +27,8 @@ Progress: [██░░░░░░░░] ~20% of v1.1
 | Phase | Plan | Duration | Tasks | Files |
 |-------|------|----------|-------|-------|
 | 06 | 01 | 7min | 2 | 9 |
-| 06 | 02 | 3min | 2 | 4 |
+| 06 | 02 | 5min | 3 | 5 |
+| 06 | 03 | 4min | 1 | 1 |
 
 ## Accumulated Context
 
@@ -43,13 +44,15 @@ Key decisions from v1.0 affecting v1.1:
 - Dark minimalist design — Radio UI must follow same patterns as existing modules
 - Session-scoped query keys: ['openf1', sessionKey, domain] — sessionKey at position 1 enables bulk cache invalidation per session (06-01)
 - fetchPositions always requires driverNumber — full session position data exceeds 100K records; always filter by driver (06-01)
-- findPrecedingIndex not exported — tested through public correlateRadioContext API to keep module surface minimal (06-02)
-- ISO 8601 strings with UTC timezone sort correctly lexicographically — no Date parsing needed in binary search (06-02)
-- Defensive .slice() before sort in correlateRadioContext — never mutate caller arrays (06-02)
+
+Key decisions from Phase 6 Plans 02-03 (v1.1):
+- new Audio() must be inside useEffect with empty deps — only SSR-safe pattern in Next.js App Router (06-03)
+- Named event listener consts required for removeEventListener to work correctly in cleanup (06-03)
+- CORS test deferred — Phase 7 must handle both direct CDN URL case and proxy case until confirmed on Vercel (06-03)
 
 ### Blockers/Concerns
 
-- Phase 6: CORS behavior of livetiming.formula1.com CDN must be smoke-tested on deployed Vercel origin (not localhost) before Phase 7 begins. If blocked, a server-side audio proxy route is required (~1–2 days rework).
+- Phase 7: CORS behavior of livetiming.formula1.com CDN must be smoke-tested on deployed Vercel origin before building sticky player UI. If blocked, implement /api/radio-proxy as first task of Phase 7. Test: open DevTools console on Vercel preview URL and run: const a = new Audio("https://livetiming.formula1.com/static/2024/2024-03-09_Saudi_Arabian_Grand_Prix/2024-03-07_Practice_1/TeamRadio/MAXVER01_1_20240307_141852.mp3"); a.play().then(() => console.log("CORS OK")).catch(e => console.error("CORS BLOCKED:", e));
 - Phase 8: Position data volume (~20K records per driver per race) must be empirically validated with a real API call to choose between bounded date-window query vs. full per-driver fetch.
 
 ### Pending Todos
@@ -58,6 +61,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-19 (Phase 6 Plan 02 execution)
-Stopped at: Completed 06-02-PLAN.md — correlateRadioContext binary search utility + vitest test infrastructure
+Last session: 2026-02-19 (Phase 6 execution — all 3 plans complete)
+Stopped at: Completed 06-03-PLAN.md — useAudioPlayer hook done, CORS test deferred, Phase 6 fully complete
 Resume file: None
