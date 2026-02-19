@@ -4,6 +4,9 @@ import { useState, useMemo } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { DriverSelect } from "@/components/shared/DriverSelect";
 import { DriverCompareCard } from "@/components/head-to-head/DriverCompareCard";
+import { PointsPerSeasonChart } from "@/components/head-to-head/PointsPerSeasonChart";
+import { CareerScatterChart } from "@/components/head-to-head/CareerScatterChart";
+import { TeammateQualifyingChart } from "@/components/head-to-head/TeammateQualifyingChart";
 import { useCareerResults } from "@/hooks/useCareerResults";
 import { useCareerQualifying } from "@/hooks/useCareerQualifying";
 import { useCareerStandings } from "@/hooks/useCareerStandings";
@@ -79,13 +82,66 @@ export function HeadToHeadClient({ initialD1, initialD2 }: HeadToHeadClientProps
     [d2Results, d2Qualifying, d2Standings]
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _teammateH2H = useMemo(
+  const teammateH2H = useMemo(
     () => computeTeammateH2H(d1Qualifying ?? [], d2Qualifying ?? []),
     [d1Qualifying, d2Qualifying]
   );
 
-  // Driver display names and colors
+  // --- Chart data transformations ---
+
+  // Points per season: merge both drivers' data into a single array by season
+  const pointsPerSeasonData = useMemo(() => {
+    if (!d1Stats || !d2Stats) return [];
+    const seasonMap = new Map<string, { season: string; d1Points?: number; d2Points?: number }>();
+    for (const s of d1Stats.pointsPerSeason) {
+      seasonMap.set(s.season, { season: s.season, d1Points: s.points });
+    }
+    for (const s of d2Stats.pointsPerSeason) {
+      const existing = seasonMap.get(s.season);
+      if (existing) existing.d2Points = s.points;
+      else seasonMap.set(s.season, { season: s.season, d2Points: s.points });
+    }
+    return [...seasonMap.values()].sort((a, b) => a.season.localeCompare(b.season));
+  }, [d1Stats, d2Stats]);
+
+  // Career scatter data: race index vs finish position
+  const d1ScatterData = useMemo(() => {
+    if (!d1Results) return [];
+    return d1Results
+      .map((race, i) => {
+        const pos = parseInt(race.Results?.[0]?.position ?? "0", 10);
+        return pos > 0 && isFinite(pos) ? { raceIndex: i + 1, position: pos } : null;
+      })
+      .filter((item): item is { raceIndex: number; position: number } => item !== null);
+  }, [d1Results]);
+
+  const d2ScatterData = useMemo(() => {
+    if (!d2Results) return [];
+    return d2Results
+      .map((race, i) => {
+        const pos = parseInt(race.Results?.[0]?.position ?? "0", 10);
+        return pos > 0 && isFinite(pos) ? { raceIndex: i + 1, position: pos } : null;
+      })
+      .filter((item): item is { raceIndex: number; position: number } => item !== null);
+  }, [d2Results]);
+
+  // Teammate H2H bar chart data: aggregate by season
+  const teammateBarData = useMemo(() => {
+    if (!teammateH2H) return [];
+    const seasonMap = new Map<string, { d1Wins: number; d2Wins: number }>();
+    for (const race of teammateH2H.races) {
+      const entry = seasonMap.get(race.season) ?? { d1Wins: 0, d2Wins: 0 };
+      if (race.winner === "d1") entry.d1Wins++;
+      else if (race.winner === "d2") entry.d2Wins++;
+      seasonMap.set(race.season, entry);
+    }
+    return [...seasonMap.entries()]
+      .map(([season, data]) => ({ season, ...data }))
+      .sort((a, b) => a.season.localeCompare(b.season));
+  }, [teammateH2H]);
+
+  // --- Driver display names and colors ---
+
   function getDriverName(driverId: string): string {
     if (!drivers || !driverId) return driverId;
     const driver = drivers.find((d: JolpikaDriver) => d.driverId === driverId);
@@ -132,7 +188,7 @@ export function HeadToHeadClient({ initialD1, initialD2 }: HeadToHeadClientProps
 
       {/* Content area — only shows when both drivers selected */}
       {showComparison && (
-        <div className="mt-8">
+        <div className="mt-8 space-y-8">
           <DriverCompareCard
             d1Stats={comparisonReady ? d1Stats : null}
             d2Stats={comparisonReady ? d2Stats : null}
@@ -142,7 +198,36 @@ export function HeadToHeadClient({ initialD1, initialD2 }: HeadToHeadClientProps
             d2Color={d2Color}
             standingsPending={standingsPending}
           />
-          {/* Charts will be added in Plan 04-03 */}
+
+          {comparisonReady && (
+            <>
+              <PointsPerSeasonChart
+                data={pointsPerSeasonData}
+                d1Name={d1Name}
+                d2Name={d2Name}
+                d1Color={d1Color}
+                d2Color={d2Color}
+              />
+              <CareerScatterChart
+                d1Data={d1ScatterData}
+                d2Data={d2ScatterData}
+                d1Name={d1Name}
+                d2Name={d2Name}
+                d1Color={d1Color}
+                d2Color={d2Color}
+              />
+              <TeammateQualifyingChart
+                data={teammateBarData}
+                d1Name={d1Name}
+                d2Name={d2Name}
+                d1Color={d1Color}
+                d2Color={d2Color}
+                totalD1Wins={teammateH2H?.d1Wins ?? 0}
+                totalD2Wins={teammateH2H?.d2Wins ?? 0}
+                noTeammateSeasons={(teammateH2H?.teammateSeasonsFound.length ?? 0) === 0}
+              />
+            </>
+          )}
         </div>
       )}
     </div>
