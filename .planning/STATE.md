@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 ## Current Position
 
 Phase: 5 of 5 (Quiz Module) - In Progress
-Plan: 1 of 3 complete
-Status: Executing plan 05-01 — utility layer complete, React components next
-Last activity: 2026-02-19 — Completed plan 05-01 (useLocalStorage hook, shuffleArray, and 3 question generators)
+Plan: 2 of 3 complete
+Status: Executing plan 05-02 — quiz UI complete, plan 03 next
+Last activity: 2026-02-19 — Completed plan 05-02 (QuizClient FSM, 3 game mode components, ModeSelect, ScoreBoard, /quiz page)
 
-Progress: [████████████████████████████████████████████████████████████] 83% (10/12 plans complete across all phases)
+Progress: [████████████████████████████████████████████████████████████████] 92% (11/12 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: 9.17 minutes
-- Total execution time: 1.52 hours
+- Total plans completed: 11
+- Average duration: 8.55 minutes
+- Total execution time: 1.57 hours
 
 **By Phase:**
 
@@ -31,7 +31,7 @@ Progress: [███████████████████████
 | 02 | 2 | 8.2m | 4.1m |
 | 03 | 2 | 4.0m | 2.0m |
 | 04 | 3 | 88m | 29.3m |
-| 05 | 1 | 2m | 2.0m |
+| 05 | 2 | 4m | 2.0m |
 
 **Recent Completions:**
 
@@ -47,6 +47,7 @@ Progress: [███████████████████████
 | 04-02 | 26m (1542s) | 2 | 7 | 2026-02-19 |
 | 04-03 | 47m (2875s) | 2 | 4 | 2026-02-19 |
 | 05-01 | 2m (89s) | 2 | 5 | 2026-02-19 |
+| 05-02 | 2m | 2 | 7 | 2026-02-19 |
 
 ## Accumulated Context
 
@@ -94,6 +95,8 @@ Recent decisions affecting current work:
 - [Phase 05-01]: generateHigherOrLower uses 10-retry loop + deterministic fallback scan — guarantees non-tie output for any valid standings array
 - [Phase 05-01]: useLocalStorage dispatches synthetic StorageEvent for same-tab change propagation (browser native fires only in other tabs)
 - [Phase 05-01]: initialValue excluded from setValue useCallback deps — read via standalone getSnapshot() call inside callback to avoid stale closure loop
+- [Phase 05]: GameMode and GamePhase types exported from QuizClient — game components import from parent to avoid circular deps
+- [Phase 05]: bestScores excluded from feedback useEffect deps — only state.score and state.mode needed, avoids stale closure re-trigger
 
 ### Roadmap Evolution
 
@@ -110,5 +113,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-19 (plan execution)
-Stopped at: Completed 05-01-PLAN.md - useLocalStorage hook, shuffleArray utilities, and 3 question generators
+Stopped at: Completed 05-02-PLAN.md - QuizClient FSM, 3 game mode components, ModeSelect, ScoreBoard, /quiz page update
 Resume file: None
